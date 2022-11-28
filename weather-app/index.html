@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>VaporWeather</title>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script src="https://kit.fontawesome.com/8aaf93a4a9.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,34 +16,34 @@
 <body>
     <div class="container">
         <h1>
-            InspoWeather
+            VaporWeather
         </h1>
         <div class="row">
             <div class="col-7">
                 <form id="search-form">
-                    <input type="text" name="city" id="city" placeholder="Where next?" autocomplete="off">
+                    <input type="text" name="city" id="city" placeholder="Where next?" autocomplete="off" autofocus="on" class="form-control">
                 </form>
                 </br>
                 <button>Right here right now</button>
                 <h2>
-                    DefaultCity
+                    Right Here
                 </h2>
                 <h3>
-                    Monday 12:27
+                    Last updated: <span id="date">Right now</span>
                 </h3>
                 </br>
                 <div class="row">
                     <div class="col-2">
-                        <i class="fa-regular fa-sun today"></i>
+                        <img src="" id ="icon" />
                     </div>
                     <div class="col-5 temp-today">
-                        <span id = "temp">16</span> <a href="#" class="not-link" id = "celsius">C</a> <a href="#" id = "fahrenheit">F</a>
+                        <span id = "temp"></span> <a href="#" class="not-link" id = "celsius-link">C</a> <a href="#" id = "fahrenheit-link">F</a>
                         </br>
-                        <span id = "description">Clear</span>
+                        <span id = "description"></span>
                         </br>
-                        <span id = "humidity">80% humidity</span>
+                        <span id = "humidity"></span>
                         </br>
-                        <span id = "wind-speed">4KM/H wind</span>
+                        <span id = "wind-speed"></span>
                     </div>
                 </div>
                 <div class="row">
@@ -146,7 +146,7 @@
                 </div>
             </div>
         </div>
-        <a href="https://github.com/laumo15/learning/tree/main/weather-app">Open source code</a> by Laura
+        <a href="https://github.com/laumo15/learning/tree/main/weather-app" target="_blank">Open source code</a> by Laura
     </div>
 </body>
 <script src="src/index.js"></script>

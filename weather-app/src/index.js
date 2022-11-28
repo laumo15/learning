@@ -1,4 +1,5 @@
-function formatDate(date) {
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
   let days = [
     "Sunday",
     "Monday",
@@ -8,12 +9,12 @@ function formatDate(date) {
     "Friday",
     "Saturday",
   ]
-  let day = days[now.getDay()];
-  let hours = now.getHours()
+  let day = days[date.getDay()];
+  let hours = date.getHours()
   if (hours < 10) {
     hours = `0${hours}`
   }
-  let minutes = now.getMinutes()
+  let minutes = date.getMinutes()
   if (minutes < 10) {
     minutes = `0${minutes}`
   }
@@ -22,7 +23,7 @@ function formatDate(date) {
 
 function getLocation(event) {
   event.preventDefault();
-  navigator.geolocation.getCurrentPosition(retrieveCity);
+  navigator.geolocation.getCurrentPosition(retrieveCity)
 }
 function retrieveCity(position) {
   let lat = position.coords.latitude
@@ -34,11 +35,12 @@ function retrieveCity(position) {
   axios.get(url).then(updateDescription);
   axios.get(url).then(updateHumidity);
   axios.get(url).then(updateWindSpeed);
+  axios.get(url).then(updateDate);
+  axios.get(url).then(updateIcon);
 }
 function updateCity(response) {
-  let city = document.querySelector("h2");
-  let currentCity = response.data.name;
-  city.innerHTML = currentCity;
+  let cityElement = document.querySelector("h2");
+  cityElement.innerHTML = response.data.name;
 }
 
 function retrieveWeather(event) {
@@ -52,46 +54,56 @@ function retrieveWeather(event) {
   axios.get(url).then(updateDescription);
   axios.get(url).then(updateHumidity);
   axios.get(url).then(updateWindSpeed);
+  axios.get(url).then(updateDate);
+  axios.get(url).then(updateIcon);
 }
 function updateTemp(response) {
-  let currTemp = document.querySelector("#temp");
-  let newTemp = Math.round(response.data.main.temp);
-  currTemp.innerHTML = newTemp;
+  let tempElement = document.querySelector("#temp");
+  tempElement.innerHTML = Math.round(response.data.main.temp);
+  celsiusTemp = response.data.main.temp;
 }
 function updateDescription(response) {
-  let currDescr = document.querySelector("#description")
-  let newDescr = response.data.weather[0].main;
-  currDescr.innerHTML = newDescr;
+  let descriptionElement = document.querySelector("#description")
+  descriptionElement.innerHTML = response.data.weather[0].main;
 }
 function updateHumidity(response) {
-  let currHumidity = document.querySelector("#humidity");
-  let newHumidity = response.data.main.humidity;
-  currHumidity.innerHTML = `${newHumidity}% humidity`;
+  let humidityElement = document.querySelector("#humidity");
+  humidityElement.innerHTML = `${response.data.main.humidity}% humidity`;
 }
 function updateWindSpeed(response) {
-  let currWind = document.querySelector("#wind-speed")
-  let newWind = Math.round(response.data.wind.speed);
-  currWind.innerHTML = `${newWind}KM/H wind`;
+  let windSpeedElement = document.querySelector("#wind-speed");
+  windSpeedElement.innerHTML = `${Math.round(response.data.wind.speed)}KM/H wind`;
+}
+function updateDate(response) {
+  let dateElement = document.querySelector("#date");
+  dateElement.innerHTML = formatDate(response.data.dt * 1000)
+}
+function updateIcon(response) {
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  iconElement.setAttribute("alt", response.data.weather[0].main);
 }
 
 function convertToF(event) {
   event.preventDefault();
   let currentTemperature = document.querySelector("#temp");
-  currentTemperature = number(currentTemperature);
-  currentTemperature.innerHTML = math.round((currentTemperature * 9 / 5 ) + 32);
+  currentTemperature.innerHTML = Math.round((celsiusTemp * 9 / 5 ) + 32);
   fahrenheit.classList.add("not-link");
   celsius.classList.remove("not-link");
 }
 function convertToC(event) {
-  event.preventDefault()
+  event.preventDefault();
   let currentTemperature = document.querySelector("#temp");
-  currentTemperature = number(currentTemperature);
-  currentTemperature.innerHTML = "16";
+  currentTemperature.innerHTML = Math.round(celsiusTemp);
   fahrenheit.classList.remove("not-link");
   celsius.classList.add("not-link");
 }
 
-let currentTime = document.querySelector("h3");
+celsiusTemp = null;
+
+navigator.geolocation.getCurrentPosition(retrieveCity);
+
+let currentTime = document.querySelector("#date");
 let now = new Date()
 currentTime.innerHTML = formatDate(now);
 
@@ -101,7 +113,7 @@ form.addEventListener("submit", retrieveWeather);
 let button = document.querySelector("button");
 button.addEventListener("click", getLocation);
 
-let fahrenheit = document.querySelector("#fahrenheit");
-let celsius = document.querySelector("#celsius");
+let fahrenheit = document.querySelector("#fahrenheit-link");
+let celsius = document.querySelector("#celsius-link");
 fahrenheit.addEventListener("click", convertToF);
 celsius.addEventListener("click", convertToC);
