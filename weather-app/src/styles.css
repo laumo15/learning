@@ -4,8 +4,8 @@ html{
 
 body{
     font-family: 'Roboto Mono', monospace;
-    background: linear-gradient(219.3deg, rgb(149, 0, 199) 4.7%, rgb(130, 0, 226) 22.9%, rgb(95, 0, 199) 43.2%, rgb(70, 0, 199) 63.9%, rgb(5, 0, 199) 85.1%, rgb(0, 95, 199) 106.8%);
-    /*background-color: #131138; */
+    background: url(images/IMG_1040.JPG);
+    /*background: linear-gradient(219.3deg, rgb(149, 0, 199) 4.7%, rgb(130, 0, 226) 22.9%, rgb(95, 0, 199) 43.2%, rgb(70, 0, 199) 63.9%, rgb(5, 0, 199) 85.1%, rgb(0, 95, 199) 106.8%); */
     color: #E30C48;
     font-size: 18px;
     min-height: 100%;
@@ -15,11 +15,11 @@ body{
 }
 
 h1,h2,h5{
-font-family: 'VT323', monospace;
+    font-family: 'VT323', monospace;
 }
 
 h1{
-    margin-top: 30px;
+    margin-top: 10px;
     font-size: 70px;
     color: #1967E7;
     text-align: center;
@@ -103,10 +103,12 @@ div .forecast-temp {
 }
 
 .weather-app{
-    max-width: 700px;
+    max-width: 750px;
     margin: 0 auto;
+    padding: 10px 30px;
     border:rgb(5, 0, 199) solid 3px;
     border-radius: 0.25rem;
+    background: linear-gradient(219.3deg, rgb(149, 0, 199) 4.7%, rgb(130, 0, 226) 22.9%, rgb(95, 0, 199) 43.2%, rgb(70, 0, 199) 63.9%, rgb(5, 0, 199) 85.1%, rgb(0, 95, 199) 106.8%);
 }
 
 .temp-today{
@@ -115,7 +117,7 @@ div .forecast-temp {
 
 .next-days{
     border: none;
-    margin-top: 10px;
+    margin-top: 16px;
     background-color: #e0e1ff;
     border-radius: 0.25rem;
     box-shadow: #480BCB 3px 3px 3px;
@@ -124,6 +126,7 @@ div .forecast-temp {
 footer{
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .not-link{
@@ -133,4 +136,50 @@ footer{
 }
 .not-link:hover{
     color:#4CE0CF
+}
+
+.clear{
+    background: url(images/clear.JPG);
+}
+.clouds{
+    background: url(images/clouds.JPG);
+}
+.mist{
+    background: url(images/mist.JPG);
+}
+.haze{
+    background: url(images/mist.JPG);
+}
+.dust{
+    background: url(images/mist.JPG);
+}
+.fog{
+    background: url(images/mist.JPG);
+}
+.sand{
+    background: url(images/mist.JPG);
+}
+.dust{
+    background: url(images/mist.JPG);
+}
+.ash{
+    background: url(images/mist.JPG);
+}
+.squall{
+    background: url(images/mist.JPG);
+}
+.tornado{
+    background: url(images/mist.JPG);
+}
+.rain{
+    background: url(images/rain.JPG);
+}
+.drizzle{
+    background: url(images/rain.JPG);
+}
+.snow{
+    background: url(images/snow.JPG);
+}
+.thunderstorm{
+    background: url(images/thunderstorm.JPG);
 }

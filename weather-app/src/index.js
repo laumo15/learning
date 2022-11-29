@@ -37,6 +37,7 @@ function retrieveCity(position) {
   axios.get(url).then(updateWindSpeed);
   axios.get(url).then(updateDate);
   axios.get(url).then(updateIcon);
+  axios.get(url).then(updateBackground);
   axios.get(url).then(getForecast);
 }
 
@@ -56,6 +57,7 @@ function search(city) {
   axios.get(url).then(updateWindSpeed);
   axios.get(url).then(updateDate);
   axios.get(url).then(updateIcon);
+  axios.get(url).then(updateBackground);
   axios.get(url).then(getForecast);
 }
 function updateCity(response) {
@@ -88,11 +90,19 @@ function updateIcon(response) {
   iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   iconElement.setAttribute("alt", response.data.weather[0].main);
 }
+function updateBackground(response) {
+  let backgroundId = response.data.weather[0].main;
+  backgroundId = backgroundId.toLowerCase();
+  let body = document.querySelector("body");
+  body.className = "";
+  body.classList.add(backgroundId);
+}
 function getForecast(response) {
   let apiKey = "597c40c39084687093b091cd48b366f8";
   let url = `http://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lat}&units=metric&appid=${apiKey}`;
   axios.get(url).then(displayForecast);
 }
+
 
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
