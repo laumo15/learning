@@ -87,7 +87,7 @@ function updateDate(response) {
 }
 function updateIcon(response) {
   let iconElement = document.querySelector("#icon");
-  iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  iconElement.setAttribute("src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   iconElement.setAttribute("alt", response.data.weather[0].main);
 }
 function updateBackground(response) {
@@ -99,7 +99,7 @@ function updateBackground(response) {
 }
 function getForecast(response) {
   let apiKey = "597c40c39084687093b091cd48b366f8";
-  let url = `http://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lat}&units=metric&appid=${apiKey}`;
+  let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lat}&units=metric&appid=${apiKey}`;
   axios.get(url).then(displayForecast);
 }
 
@@ -125,7 +125,7 @@ function displayForecast(response) {
               <div class="row g-0">
                   <h5>${formatDay(forecastDay.dt)}</h5>
                   <div class="col-md-4 forecast">
-                  <img src="http://openweathermap.org/img/wn/${
+                  <img src="https://openweathermap.org/img/wn/${
                     forecastDay.weather[0].icon
                   }@2x.png" class="icon-forecast">
                   </div>
