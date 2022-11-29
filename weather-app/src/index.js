@@ -39,16 +39,15 @@ function retrieveCity(position) {
   axios.get(url).then(updateIcon);
   axios.get(url).then(getForecast);
 }
-function updateCity(response) {
-  let cityElement = document.querySelector("h2");
-  cityElement.innerHTML = response.data.name;
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let inputCity = document.querySelector("#city")
+  search(inputCity.value);
 }
 
-function retrieveWeather(event) {
-  event.preventDefault();
+function search(city) {
   let apiKey = "0efb4fc16a9ed98dc0b3aafd8491d6ad";
-  let inputCity = document.querySelector("#city");
-  let city = inputCity.value;
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(url).then(updateCity);
   axios.get(url).then(updateTemp);
@@ -58,6 +57,10 @@ function retrieveWeather(event) {
   axios.get(url).then(updateDate);
   axios.get(url).then(updateIcon);
   axios.get(url).then(getForecast);
+}
+function updateCity(response) {
+  let cityElement = document.querySelector("h2")
+  cityElement.innerHTML = response.data.name
 }
 function updateTemp(response) {
   let tempElement = document.querySelector("#temp");
@@ -146,14 +149,12 @@ function convertToC(event) {
 
 celsiusTemp = null;
 
-navigator.geolocation.getCurrentPosition(retrieveCity);
-
 let currentTime = document.querySelector("#date");
 let now = new Date()
 currentTime.innerHTML = formatDate(now);
 
 let form = document.querySelector("#search-form");
-form.addEventListener("submit", retrieveWeather);
+form.addEventListener("submit", handleSubmit);
 
 let button = document.querySelector("button");
 button.addEventListener("click", getLocation);
@@ -163,4 +164,4 @@ let celsius = document.querySelector("#celsius-link");
 fahrenheit.addEventListener("click", convertToF);
 celsius.addEventListener("click", convertToC);
 
-//displayForecast();
+search("Milan");
