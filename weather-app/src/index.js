@@ -84,6 +84,35 @@ function updateIcon(response) {
   iconElement.setAttribute("alt", response.data.weather[0].main);
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let days = ["Tue", "Wed", "Thu", "Fri"];
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+      <div class="col">
+          <div class="card mb-3 next-days" style="max-width: 200px;">
+              <div class="row g-0">
+                  <h5>${day}</h5>
+                  <div class="col-md-4">
+                  <i class="fa-solid fa-cloud-sun next-days"></i>
+                  </div>
+                  <div class="col-md-8">
+                  <div class="card-body">
+                      <p class="card-text">20 C </br> 16 C</p>
+                  </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      `;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function convertToF(event) {
   event.preventDefault();
   let currentTemperature = document.querySelector("#temp");
@@ -117,3 +146,5 @@ let fahrenheit = document.querySelector("#fahrenheit-link");
 let celsius = document.querySelector("#celsius-link");
 fahrenheit.addEventListener("click", convertToF);
 celsius.addEventListener("click", convertToC);
+
+displayForecast();
