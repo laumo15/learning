@@ -108,24 +108,28 @@ function displayForecast(response) {
   forecast.forEach(function (forecastDay, index) {
     if (index < 5) {
       forecastHTML =
-      forecastHTML +
-      `
+        forecastHTML +
+        `
       <div class="col">
           <div class="card mb-3 next-days" style="max-width: 200px;">
               <div class="row g-0">
                   <h5>${formatDay(forecastDay.dt)}</h5>
-                  <div class="col-md-4">
-                  <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png">
+                  <div class="col-md-4 forecast">
+                  <img src="http://openweathermap.org/img/wn/${
+                    forecastDay.weather[0].icon
+                  }@2x.png" class="icon-forecast">
                   </div>
                   <div class="col-md-8">
-                  <div class="card-body">
-                      <p class="card-text">${Math.round(forecastDay.temp.max)} </br> ${Math.round(forecastDay.temp.min)} C</p>
+                  <div class="card-body forecast-temp">
+                      <p class="card-text forecast-temp">${Math.round(
+                        forecastDay.temp.max
+                      )}° </br> ${Math.round(forecastDay.temp.min)}°</p>
                   </div>
                   </div>
               </div>
           </div>
       </div>
-      `;
+      `
     }
   });
   forecastHTML = forecastHTML + `</div>`;
