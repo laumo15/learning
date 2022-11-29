@@ -26,10 +26,10 @@ function getLocation(event) {
   navigator.geolocation.getCurrentPosition(retrieveCity)
 }
 function retrieveCity(position) {
-  let lat = position.coords.latitude
-  let lon = position.coords.longitude
-  let apiKey = "0efb4fc16a9ed98dc0b3aafd8491d6ad"
-  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let apiKey = "0efb4fc16a9ed98dc0b3aafd8491d6ad";
+  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   axios.get(url).then(updateCity);
   axios.get(url).then(updateTemp);
   axios.get(url).then(updateDescription);
@@ -37,6 +37,7 @@ function retrieveCity(position) {
   axios.get(url).then(updateWindSpeed);
   axios.get(url).then(updateDate);
   axios.get(url).then(updateIcon);
+  axios.get(url).then(getForecast);
 }
 function updateCity(response) {
   let cityElement = document.querySelector("h2");
@@ -56,6 +57,7 @@ function retrieveWeather(event) {
   axios.get(url).then(updateWindSpeed);
   axios.get(url).then(updateDate);
   axios.get(url).then(updateIcon);
+  axios.get(url).then(getForecast);
 }
 function updateTemp(response) {
   let tempElement = document.querySelector("#temp");
@@ -83,31 +85,45 @@ function updateIcon(response) {
   iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   iconElement.setAttribute("alt", response.data.weather[0].main);
 }
+function getForecast(response) {
+  let apiKey = "597c40c39084687093b091cd48b366f8";
+  let url = `http://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lat}&units=metric&appid=${apiKey}`;
+  axios.get(url).then(displayForecast);
+}
 
-function displayForecast() {
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let days = ["Tue", "Wed", "Thu", "Fri"];
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
       forecastHTML +
       `
       <div class="col">
           <div class="card mb-3 next-days" style="max-width: 200px;">
               <div class="row g-0">
-                  <h5>${day}</h5>
+                  <h5>${formatDay(forecastDay.dt)}</h5>
                   <div class="col-md-4">
-                  <i class="fa-solid fa-cloud-sun next-days"></i>
+                  <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png">
                   </div>
                   <div class="col-md-8">
                   <div class="card-body">
-                      <p class="card-text">20 C </br> 16 C</p>
+                      <p class="card-text">${Math.round(forecastDay.temp.max)} </br> ${Math.round(forecastDay.temp.min)} C</p>
                   </div>
                   </div>
               </div>
           </div>
       </div>
       `;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
@@ -147,4 +163,4 @@ let celsius = document.querySelector("#celsius-link");
 fahrenheit.addEventListener("click", convertToF);
 celsius.addEventListener("click", convertToC);
 
-displayForecast();
+//displayForecast();
